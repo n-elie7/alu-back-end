@@ -32,7 +32,7 @@ def main():
     username = user.get("username")
 
     # Fetch todos
-    todos_resp = requests.get(f"{base_url}/todos", 
+    todos_resp = requests.get(f"{base_url}/todos",
                               params={"userId": employee_id})
     if todos_resp.status_code != 200:
         sys.exit(1)
