@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """
 Fetch and display an employee's TODO list progress
 from https://jsonplaceholder.typicode.com
