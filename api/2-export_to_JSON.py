@@ -4,6 +4,7 @@ Fetch and display an employee's TODO list progress
 from https://jsonplaceholder.typicode.com
 """
 
+import json
 import requests
 import sys
 
@@ -27,7 +28,8 @@ def main():
         sys.exit(1)
 
     user = user_resp.json()
-    employee_name = user.get("name")
+    user_id = user.get("id")
+    username = user.get("username")
 
     # Fetch todos
     todos_resp = requests.get(f"{base_url}/todos", 
@@ -37,19 +39,19 @@ def main():
 
     todos = todos_resp.json()
 
-    total_tasks = len(todos)
-    completed_tasks = [t for t in todos if t.get("completed") is True]
-    done_tasks = len(completed_tasks)
+    tasks = []
+    for task in todos:
+        tasks.append({
+            "task": task.get("title"),
+            "completed": task.get("completed"),
+            "username": username
+        })
 
-    # Output (EXACT format)
-    print(
-        f"Employee {employee_name} is done \
-        with tasks({done_tasks}/{total_tasks}):"
-    )
+    filename = f"{user_id}.json"
+    data = {str(user_id): tasks}
 
-    for task in completed_tasks:
-        print(f"\t {task.get('title')}")
-
+    with open(filename, mode="w", encoding="utf-8") as jsonfile:
+        json.dump(data, jsonfile)
 
 if __name__ == "__main__":
     main()
