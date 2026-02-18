@@ -44,8 +44,8 @@ def main():
 
     # Output (EXACT format)
     print(
-        f"Employee {employee_name} is done \
-        with tasks({done_tasks}/{total_tasks}):"
+        f"Employee {employee_name} is done "
+        f"with tasks({done_tasks}/{total_tasks}):"
     )
 
     for task in completed_tasks:
